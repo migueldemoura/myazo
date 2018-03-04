@@ -1,5 +1,7 @@
 # Myazo
 
+![Demo](https://raw.githubusercontent.com/migueldemoura/myazo/master/demo.gif)
+
 Myazo is a self-hosted [Gyazo](https://gyazo.com/) alternative. It allows you to take a screenshot of part of your screen and automatically upload it to your own server.
 
 It is comprised by a cross-platform client in Python which defers the actual taking of screenshot to OS built-in tools (macOS and Windows) or common utilities (GNU/Linux distributions). The server script, designed with cheap shared hosting in mind, is written with the ubiquitous PHP. Both the client and server are single files. You may separate the settings from the code if you wish.
