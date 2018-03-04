@@ -55,7 +55,7 @@ StartupNotify=false
 
 * Windows
 
-Create a new shortcut pointing to `cmd /c "C:\path\to\myazo.py"`. Open the shortcut properties, `Shortcut` tab and set `Run` as `Minimized`. Optionally, you can also change the icon to more fitting and better looking one as well (`shell32.dll`'s scissors one is decent). You can then pin the shortcut to the taskbar or start menu.
+Create a new shortcut pointing to `cmd /c "C:\path\to\myazo.py"`. Open the shortcut properties, `Shortcut` tab and set `Run` as `Minimized`. Optionally, you can change the icon to a more fitting and better looking one as well (`shell32.dll`'s scissors one is decent). You can then pin the shortcut to the taskbar or start menu.
 
 ## License
 
