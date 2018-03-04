@@ -41,7 +41,7 @@ for utils in (utils for os_name, utils in backends.items() if os_name == platfor
     break
 
 # If the util used stored the screenshot in the clipboard, output it to the tmp file
-if util in 'snippingtool':
+if util == 'snippingtool':
     from PIL import ImageGrab
     img = ImageGrab.grabclipboard()
     if img is not None:
