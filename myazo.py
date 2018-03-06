@@ -34,11 +34,9 @@ backends = {
     }
 }
 
-for utils in (utils for os_name, utils in backends.items() if os_name == platform.system()):
-    for util, args in utils.items():
-        if shutil.which(util) != None and run([util] + args).returncode == 0:
-            break
-    break
+for util, args in backends[platform.system()].items():
+    if shutil.which(util) != None and run([util] + args).returncode == 0:
+        break
 
 # If the util used stored the screenshot in the clipboard, output it to the tmp file
 if util == 'snippingtool':
