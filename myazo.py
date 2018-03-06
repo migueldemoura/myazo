@@ -38,7 +38,7 @@ for util, args in backends[platform.system()].items():
     if shutil.which(util) != None and run([util] + args).returncode == 0:
         break
 
-# If the util used stored the screenshot in the clipboard, output it to the tmp file
+# If the used util stored the screenshot in the clipboard, output it to the tmp file
 if util == 'snippingtool':
     from PIL import ImageGrab
     img = ImageGrab.grabclipboard()
