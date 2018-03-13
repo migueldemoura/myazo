@@ -1,0 +1,7 @@
+[Myazo]
+upload_script = https://myazo.example.com/upload.php
+secret = hunter2
+clear_metadata = True
+open_browser = True
+copy_clipboard = True
+output_url = True
