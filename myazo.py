@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from configparser import ConfigParser
 from subprocess import run
 import os
 import platform
@@ -10,13 +11,16 @@ from PIL import Image
 import pyperclip
 import requests
 
-# Settings
-upload_script = 'https://'
-secret = ''
-clear_metadata = True
-open_browser = True
-copy_clipboard = True
-output_url = True
+# Configuration
+config = ConfigParser(defaults={
+    'upload_script': 'https://myazo.example.com/upload.php',
+    'secret': 'hunter2',
+    'clear_metadata': 'True',
+    'open_browser': 'True',
+    'copy_clipboard': 'True',
+    'output_url': 'True'
+})
+config.read(os.path.expanduser('~/.config/myazo/config.ini'))
 
 tmp_file = '{}/{}.png'.format(tempfile.gettempdir(), next(tempfile._get_candidate_names()))
 
@@ -30,7 +34,7 @@ backends = {
         'screencapture': ['-i', tmp_file]
     },
     'Windows': {
-        'snippingtool': ['/clip'] # '/clip' requires at least Win10 v.1703
+        'snippingtool': ['/clip'] # '/clip' requires at least Win10 1703
     }
 }
 
@@ -49,7 +53,7 @@ if os.path.isfile(tmp_file) != True:
     print('Error: Failed to take screenshot.')
     exit(-1)
 
-if clear_metadata:
+if config['Myazo'].get('clear_metadata'):
     img = Image.open(tmp_file)
     new_img = Image.new(img.mode, img.size)
     new_img.putdata(list(img.getdata()))
@@ -57,13 +61,16 @@ if clear_metadata:
 
 img = open(tmp_file, 'rb')
 
-url = requests.post(('{}?s={}').format(upload_script, secret), files={'screenshot': img}).text
+url = requests.post(
+    ('{}?s={}').format(config['Myazo'].get('upload_script'), config['Myazo'].get('secret')),
+    files={'screenshot': img}
+).text
 
-if open_browser:
+if config['Myazo'].get('open_browser'):
     webbrowser.open(url)
-if copy_clipboard:
+if config['Myazo'].get('copy_clipboard'):
     pyperclip.copy(url)
-if output_url:
+if config['Myazo'].get('output_url'):
     print(url)
 
 img.close()
