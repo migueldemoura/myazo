@@ -23,8 +23,8 @@ The following OSes have off-the-shelf compatibility. You can add more back ends 
 pip install -r requirements.txt
 ```
 
-* Choose or generate a secret key and fill in the variable `secret` at `myazo.py`;
-* Hash the secret key with bcrypt and fill in the variable `secretBcrypt` at `web/upload.php`;
+* Choose or generate a secret key and fill in the variable `secret` at `client/myazo.py`;
+* Hash the secret key with bcrypt and fill in the variable `secretBcrypt` at `server/upload.php`;
 You can do so with PHP itself:
 
 ```shell
@@ -33,14 +33,14 @@ php -r "echo password_hash('yoursecrethere', PASSWORD_DEFAULT);"
 
 Or using any other way you prefer.
 
-* Upload the `web/upload.php` to your webserver. Make sure directory listing is disabled;
-* Enter the full public url of the `web/upload.php` script in the variable `upload_script` at `myazo.py`.
+* Upload `server/upload.php` to your webserver. Make sure directory listing is disabled;
+* Enter the full public url of the `server/upload.php` script in the variable `upload_script` at `client/myazo.py`.
 
 ## Desktop Icon/Shortcut
 
 * GNU/Linux
 
-If you run `chmod +x myazo.py`, you can swap `Exec=python3 /path/to/myazo.py` with `Exec= /path/to/myazo.py`.
+If you run `chmod +x /path/to/myazo.py`, you can swap `Exec=python3 /path/to/myazo.py` with `Exec= /path/to/myazo.py`.
 
 `~/.local/share/applications/myazo.desktop`
 ```
