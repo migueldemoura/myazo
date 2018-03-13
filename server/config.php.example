@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'secretBcrypt' => '',
+    'saveDirName' => '/data/',
+    'maxScreenshotSize' => 2 * 1048576
+];

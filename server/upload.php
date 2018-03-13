@@ -1,22 +1,29 @@
 <?php
 
-// Settings
-$secretBcrypt = '';
+// Configuration
+$config = array_replace_recursive(
+    [
+        'secretBcrypt' => '',
+        'saveDirName' => '/data/',
+        'maxScreenshotSize' => 2 * 1048576
+    ],
+    file_exists('./config.php') ? include_once('./config.php') : []
+);
 
-$baseUri = 'https://' . $_SERVER['HTTP_HOST'] . '/data/';
-$saveDir = __DIR__ . '/data/';
+$baseUri = 'https://' . $_SERVER['HTTP_HOST'] . $config['saveDirName'];
+$saveDir = __DIR__ . $config['saveDirName'];
 $screenshot = $_FILES['screenshot'];
 
 // Checks
 if (
     // Secret
-    password_verify($_GET['s'], $secretBcrypt) &&
+    password_verify($_GET['s'], $config['secretBcrypt']) &&
     // Single file upload
     isset($screenshot['error']) &&
     !is_array($screenshot['error']) &&
     $screenshot['error'] === UPLOAD_ERR_OK &&
     // Size
-    $screenshot['size'] <= 2 * 1048576 &&
+    $screenshot['size'] <= $config['maxScreenshotSize'] &&
     // MIME type
     mime_content_type($screenshot['tmp_name']) === 'image/png'
 ) {
