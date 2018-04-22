@@ -33,7 +33,7 @@ php -r "echo password_hash('yoursecrethere', PASSWORD_DEFAULT);"
 
 Or using any other way you prefer.
 
-* Upload `server/upload.php` to your webserver. Make sure directory listing is disabled;
+* Upload `server/upload.php` to your webserver. Make sure directory listing is disabled and you have at least PHP 5.5.0. You can check the PHP version with `php -v` or `php -r "echo phpinfo();"`;
 * Enter the full public url of the `server/upload.php` script in the variable `upload_script` at `client/myazo.py`.
 
 ## Desktop Icon/Shortcut
