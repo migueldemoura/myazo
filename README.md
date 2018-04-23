@@ -10,7 +10,7 @@ It is comprised by a cross-platform client in Python which defers the actual tak
 
 ### Client
 
-- Python >= 3.4 (check with `python --version`)
+- Python >= 3.5 (check with `python --version`)
 
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
