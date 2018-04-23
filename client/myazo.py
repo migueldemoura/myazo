@@ -12,14 +12,15 @@ import pyperclip
 import requests
 
 # Configuration
-config = ConfigParser(defaults={
+config = ConfigParser()
+config.read_dict({'Myazo': {
     'upload_script': 'https://myazo.example.com/upload.php',
     'secret': 'hunter2',
     'clear_metadata': 'True',
     'open_browser': 'True',
     'copy_clipboard': 'True',
     'output_url': 'True'
-})
+}})
 config.read(os.path.expanduser('~/.config/myazo/config.ini'))
 
 tmp_file = '{}/{}.png'.format(tempfile.gettempdir(), next(tempfile._get_candidate_names()))
