@@ -17,7 +17,7 @@ $screenshot = $_FILES['screenshot'];
 // Checks
 if (
     // Secret
-    password_verify($_GET['s'], $config['secretBcrypt']) &&
+    password_verify($_POST['secret'], $config['secretBcrypt']) &&
     // Single file upload
     isset($screenshot['error']) &&
     !is_array($screenshot['error']) &&

@@ -63,7 +63,8 @@ if config['Myazo'].get('clear_metadata'):
 img = open(tmp_file, 'rb')
 
 r = requests.post(
-    ('{}?s={}').format(config['Myazo'].get('upload_script'), config['Myazo'].get('secret')),
+    config['Myazo'].get('upload_script'),
+    data={'secret': config['Myazo'].get('secret')},
     files={'screenshot': img}
 )
 url = r.text
