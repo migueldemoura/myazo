@@ -16,12 +16,13 @@ config = ConfigParser()
 config.read_dict({'Myazo': {
     'upload_script': 'https://myazo.example.com/upload.php',
     'secret': 'hunter2',
-    'clear_metadata': 'True',
-    'open_browser': 'True',
-    'copy_clipboard': 'True',
-    'output_url': 'True'
+    'clear_metadata': True,
+    'open_browser': True,
+    'copy_clipboard': True,
+    'output_url': True
 }})
 config.read(os.path.expanduser('~/.config/myazo/config.ini'))
+config = config['Myazo']
 
 tmp_file = '{}/{}.png'.format(tempfile.gettempdir(), next(tempfile._get_candidate_names()))
 
@@ -54,7 +55,7 @@ if os.path.isfile(tmp_file) != True:
     print('Error: Failed to take screenshot.')
     exit(-1)
 
-if config['Myazo'].get('clear_metadata'):
+if config.getboolean('clear_metadata'):
     img = Image.open(tmp_file)
     new_img = Image.new(img.mode, img.size)
     new_img.putdata(list(img.getdata()))
@@ -63,8 +64,8 @@ if config['Myazo'].get('clear_metadata'):
 img = open(tmp_file, 'rb')
 
 r = requests.post(
-    config['Myazo'].get('upload_script'),
-    data={'secret': config['Myazo'].get('secret')},
+    config.get('upload_script'),
+    data={'secret': config.get('secret')},
     files={'screenshot': img}
 )
 url = r.text
@@ -73,11 +74,11 @@ if r.status_code != 200:
     print('Error: Failed to upload screenshot.')
     exit(-2)
 
-if config['Myazo'].get('open_browser'):
+if config.getboolean('open_browser'):
     webbrowser.open(url)
-if config['Myazo'].get('copy_clipboard'):
+if config.getboolean('copy_clipboard'):
     pyperclip.copy(url)
-if config['Myazo'].get('output_url'):
+if config.getboolean('output_url'):
     print(url)
 
 img.close()

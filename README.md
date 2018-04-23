@@ -62,10 +62,10 @@ If an external file is found, Myazo extends the default config with the provided
 |-------------------|----------------------------------------|-----------------------------------------------------|
 | upload_script     | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
 | secret            | 'hunter2'                              | Secret token                                        |
-| clear_metadata    | 'True'                                 | Controls clearing screenshot metadata before upload |
-| open_browser      | 'True'                                 | Controls open url in default browser after upload   |
-| copy_clipboard    | 'True'                                 | Controls copy url to clipboard after upload         |
-| output_url        | 'True'                                 | Controls print url to stdout after upload           |
+| clear_metadata    | True                                   | Controls clearing screenshot metadata before upload |
+| open_browser      | True                                   | Controls open url in default browser after upload   |
+| copy_clipboard    | True                                   | Controls copy url to clipboard after upload         |
+| output_url        | True                                   | Controls print url to stdout after upload           |
 
 ### Server
 
