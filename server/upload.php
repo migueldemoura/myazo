@@ -28,7 +28,12 @@ if (
     mime_content_type($screenshot['tmp_name']) === 'image/png'
 ) {
     // Get screenshot path
-    do {} while (file_exists($filename = bin2hex(random_bytes(12)) . '.png'));
+    do {} while (
+        file_exists($filename = bin2hex(
+                function_exists('random_bytes') ? random_bytes(12) : openssl_random_pseudo_bytes(12)
+            ) . '.png'
+        )
+    );
     if (
         // Create save directory
         (is_writable($saveDir) || mkdir($saveDir, 0755, true)) &&
