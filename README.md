@@ -10,26 +10,28 @@ It is comprised by a cross-platform client in Python which defers the actual tak
 
 ### Client
 
-- Python >= 3.5 (check with `python --version`)
+* Python >= 3.5 (check with `python --version`)
 
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
-- GNU/Linux (presets for `gnome-screenshot`, `scrot` and `import` (ImageMagick))
-- macOS
-- Windows 10 >= 1703 Creators Update (check with `winver` - Build >= 10.0.15063.251)
+* GNU/Linux (presets for `gnome-screenshot`, `scrot` and `import` (ImageMagick))
+* macOS
+* Windows 10 >= 1703 Creators Update (check with `winver` - Build >= 10.0.15063.251)
 
 ### Server
 
-- PHP >= 5.6 (check with `php -v` or `php -r "echo phpinfo();"`)
+* PHP >= 5.6 (check with `php -v` or `php -r "echo phpinfo();"`)
 
-## Installation & Configuration
+## Installation
 
-* Install [Python] 3.x and choose the version matching your CPU arch (x86 or x86-64);
+* Install [Python] 3 and choose the version matching your CPU arch (x86 or x86-64);
 * Install client requirements:
 
 ```shell
 pip install -r requirements.txt
 ```
+
+On some GNU/Linux distributions, `pip3` is used for python3. If that's the case, swap `pip` with `pip3` in the command above.
 
 * Choose or generate a secret key and fill in the variable `secret` at `client/myazo.py`;
 * Hash the secret key with bcrypt and fill in the variable `secretBcrypt` at `server/upload.php`;
@@ -42,21 +44,54 @@ php -r "echo password_hash('yoursecrethere', PASSWORD_DEFAULT);"
 If you don't have access to a php cli, create a `hash.php` file on your web server with `<?php file_put_contents(__FILE__, '<?php ' . password_hash('yoursecrethere', PASSWORD_DEFAULT));` and open it on your browser. Then, grab the hash from the `hash.php` source and delete the file.
 
 * Upload `server/upload.php` to your web server;
-* Disable directory listing so the list of uploaded screenshots isn't visible. For Apache, this can be done by uploading `server/.htaccess` to your web server's web root (or any other directory, as long as it is a parent of the one where screenshots are stored).
+* Disable directory listing so the list of uploaded screenshots isn't visible. For Apache, this can be done by uploading `server/.htaccess` to your web server's web root (or possibly any other directory, as long as it is a parent of the one where screenshots are stored).
 * Enter the full public url of the `server/upload.php` script in the variable `upload_script` at `client/myazo.py`.
+
+## Configuration
+
+There are two ways of configuring Myazo: either change the options in the scripts themselves, or use an external config file.
+
+If an external file is found, Myazo extends the default config with the provided values. The following tables contain all options and where the user config file must be placed.
+
+### Client
+
+* Example Config: `client/config.php.example`
+* Placement Path: `~/.config/myazo/config.ini` (`~` refers to the user directory)
+
+| Key               | Default                                | Description                                         |
+|-------------------|----------------------------------------|-----------------------------------------------------|
+| upload_script     | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
+| secret            | 'hunter2'                              | Secret token                                        |
+| clear_metadata    | 'True'                                 | Controls clearing screenshot metadata before upload |
+| open_browser      | 'True'                                 | Controls open url in default browser after upload   |
+| copy_clipboard    | 'True'                                 | Controls copy url to clipboard after upload         |
+| output_url        | 'True'                                 | Controls print url to stdout after upload           |
+
+### Server
+
+* Example Config: `server/config.php.example`
+* Placement Path: `config.php` (relative to `upload.php`)
+
+| Key               | Default                                | Description                                         |
+|-------------------|----------------------------------------|-----------------------------------------------------|
+| secretBcrypt      | ''                                     | Bcrypt hashed secret                                |
+| saveDirName       | '/data/'                               | Writable directory where screenshots will be stored |
+| maxScreenshotSize | 2 * 1048576                            | Maximum size in bytes of uploaded screenshot        |
+
+Please note that `maxScreenshotSize` may be capped externally by PHP and the web server.
 
 ## Desktop Icon/Shortcut
 
 * GNU/Linux
 
-If you run `chmod +x /path/to/myazo.py`, you can swap `Exec=python3 /path/to/myazo.py` with `Exec= /path/to/myazo.py`.
+Make sure the file is executable by running `chmod +x /path/to/myazo.py`.
 
 `~/.local/share/applications/myazo.desktop`
 ```
 [Desktop Entry]
 Name=Myazo
 Comment=Screenshot
-Exec=python3 /path/to/myazo.py
+Exec=/path/to/myazo.py
 Terminal=false
 Type=Application
 Icon=applets-screenshooter
