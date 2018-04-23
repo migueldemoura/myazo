@@ -8,11 +8,19 @@ It is comprised by a cross-platform client in Python which defers the actual tak
 
 ## Compatibility
 
+### Client
+
+- Python >= 3.4 (check with `python --version`)
+
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
 - GNU/Linux (presets for `gnome-screenshot`, `scrot` and `import` (ImageMagick))
 - macOS
-- Windows 10 version >= 1703
+- Windows 10 >= 1703 Creators Update (check with `winver` - Build >= 10.0.15063.251)
+
+### Server
+
+- PHP >= 5.6.35 (check with `php -v` or `php -r "echo phpinfo();"`)
 
 ## Installation & Configuration
 
@@ -33,7 +41,8 @@ php -r "echo password_hash('yoursecrethere', PASSWORD_DEFAULT);"
 
 Or using any other way you prefer.
 
-* Upload `server/upload.php` to your webserver. Make sure directory listing is disabled and you have at least PHP 5.5.0. You can check the PHP version with `php -v` or `php -r "echo phpinfo();"`;
+* Upload `server/upload.php` to your webserver;
+* Disable directory listing so the list of uploaded screenshots isn't visible. For Apache, this can be done by uploading `server/.htaccess` to your webserver's web root (or any other directory, as long as it is a parent of the one where screenshots are stored).
 * Enter the full public url of the `server/upload.php` script in the variable `upload_script` at `client/myazo.py`.
 
 ## Desktop Icon/Shortcut
