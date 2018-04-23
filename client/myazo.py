@@ -62,10 +62,15 @@ if config['Myazo'].get('clear_metadata'):
 
 img = open(tmp_file, 'rb')
 
-url = requests.post(
+r = requests.post(
     ('{}?s={}').format(config['Myazo'].get('upload_script'), config['Myazo'].get('secret')),
     files={'screenshot': img}
-).text
+)
+url = r.text
+
+if r.status_code != 200:
+    print('Error: Failed to upload screenshot.')
+    exit(-2)
 
 if config['Myazo'].get('open_browser'):
     webbrowser.open(url)
