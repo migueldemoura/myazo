@@ -71,7 +71,7 @@ r = requests.post(
 url = r.text
 
 if r.status_code != 200:
-    print('Error: Failed to upload screenshot.')
+    print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
     exit(-2)
 
 if config.getboolean('open_browser'):
