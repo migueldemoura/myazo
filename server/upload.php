@@ -5,7 +5,8 @@ $config = array_replace_recursive(
     [
         'secretBcrypt' => '',
         'saveDirName' => '/data/',
-        'maxScreenshotSize' => 2 * 1048576
+        'maxScreenshotSize' => 2 * 1048576,
+        'screenshotMimeType' => 'image/png'
     ],
     file_exists('./config.php') ? include_once('./config.php') : []
 );
@@ -26,7 +27,7 @@ if (
     $screenshot['error'] !== UPLOAD_ERR_OK ||
     // Verify size and mime type
     $screenshot['size'] > $config['maxScreenshotSize'] ||
-    mime_content_type($screenshot['tmp_name']) !== 'image/png'
+    mime_content_type($screenshot['tmp_name']) !== $config['screenshotMimeType']
 ) {
     http_response_code(422);
     exit();

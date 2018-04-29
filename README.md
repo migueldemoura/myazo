@@ -58,25 +58,26 @@ If an external file is found, Myazo extends the default config with the provided
 * Example Config: `client/config.php.example`
 * Placement Path: `~/.config/myazo/config.ini` (`~` refers to the user directory)
 
-| Key               | Default                                | Description                                         |
-|-------------------|----------------------------------------|-----------------------------------------------------|
-| upload_script     | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
-| secret            | 'hunter2'                              | Secret token                                        |
-| clear_metadata    | True                                   | Controls clearing screenshot metadata before upload |
-| open_browser      | True                                   | Controls open url in default browser after upload   |
-| copy_clipboard    | True                                   | Controls copy url to clipboard after upload         |
-| output_url        | True                                   | Controls print url to stdout after upload           |
+| Key                | Default                                | Description                                         |
+|--------------------|----------------------------------------|-----------------------------------------------------|
+| upload_script      | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
+| secret             | 'hunter2'                              | Secret token                                        |
+| clear_metadata     | True                                   | Controls clearing screenshot metadata before upload |
+| open_browser       | True                                   | Controls open url in default browser after upload   |
+| copy_clipboard     | True                                   | Controls copy url to clipboard after upload         |
+| output_url         | True                                   | Controls print url to stdout after upload           |
 
 ### Server
 
 * Example Config: `server/config.php.example`
 * Placement Path: `config.php` (relative to `upload.php`)
 
-| Key               | Default                                | Description                                         |
-|-------------------|----------------------------------------|-----------------------------------------------------|
-| secretBcrypt      | ''                                     | Bcrypt hashed secret                                |
-| saveDirName       | '/data/'                               | Writable directory where screenshots will be stored |
-| maxScreenshotSize | 2 * 1048576                            | Maximum size in bytes of uploaded screenshot        |
+| Key                | Default                                | Description                                         |
+|--------------------|----------------------------------------|-----------------------------------------------------|
+| secretBcrypt       | ''                                     | Bcrypt hashed secret                                |
+| saveDirName        | '/data/'                               | Writable directory where screenshots will be stored |
+| maxScreenshotSize  | 2 * 1048576                            | Maximum size in bytes of uploaded screenshot        |
+| screenshotMimeType | 'image/png'                            | MIME type of uploaded screenshot                    |
 
 Please note that `maxScreenshotSize` may be capped externally by PHP and the web server.
 
