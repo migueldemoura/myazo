@@ -68,11 +68,12 @@ r = requests.post(
     data={'secret': config.get('secret')},
     files={'screenshot': img}
 )
-url = r.text
 
 if r.status_code != 200:
     print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
     exit(-2)
+
+url = r.text
 
 if config.getboolean('open_browser'):
     webbrowser.open(url)
