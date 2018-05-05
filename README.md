@@ -55,7 +55,7 @@ If an external file is found, Myazo extends the default config with the provided
 
 ### Client
 
-* Example Config: `client/config.php.example`
+* Example Config: `client/config.ini.example`
 * Placement Path: `~/.config/myazo/config.ini` (`~` refers to the user directory)
 
 | Key                | Default                                | Description                                         |
