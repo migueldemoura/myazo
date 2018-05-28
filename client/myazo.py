@@ -29,6 +29,8 @@ tmp_file = '{}/{}.png'.format(tempfile.gettempdir(), next(tempfile._get_candidat
 backends = {
     'Linux': {
         'gnome-screenshot': ['-a', '-f', tmp_file],
+        # KDE Spectacle requires slight user interaction after selecting region
+        'spectacle': ['-b', '-n', '-r', '-o', tmp_file],
         'scrot': ['-s', tmp_file],
         'import': [tmp_file] # ImageMagick
     },
