@@ -14,7 +14,7 @@ It is comprised by a cross-platform client in Python which defers the actual tak
 
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
-* GNU/Linux (presets for `gnome-screenshot`, `scrot` and `import` (ImageMagick))
+* GNU/Linux (presets for `gnome-screenshot`, `spectacle`, `scrot` and `import` (ImageMagick))
 * macOS
 * Windows 10 >= 1703 Creators Update (check with `winver` - Build >= 10.0.15063.251)
 
