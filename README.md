@@ -6,6 +6,8 @@ Myazo is a self-hosted [Gyazo](https://gyazo.com/) alternative. It allows you to
 
 It is comprised by a cross-platform client in Python which defers the actual taking of screenshot to OS built-in tools (macOS and Windows) or common utilities (GNU/Linux distributions). The server script, designed with cheap shared hosting in mind, is written with the ubiquitous PHP. Both the client and server are single files. You may separate the settings from the code if you wish.
 
+It can also function as a mere Gyazo client, uploading directly to Gyazo's servers. In that case, you simply need the client and to set the configuration option `gyazo_server` to `True`. This mode won't send additional metadata like the Gyazo proprietary clients.
+
 ## Compatibility
 
 ### Client
@@ -60,12 +62,15 @@ If an external file is found, Myazo extends the default config with the provided
 
 | Key                | Default                                | Description                                         |
 |--------------------|----------------------------------------|-----------------------------------------------------|
+| gyazo_server       | False                                  | Controls whether to use Gyazo's servers             |
 | upload_script      | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
 | secret             | 'hunter2'                              | Secret token                                        |
 | clear_metadata     | True                                   | Controls clearing screenshot metadata before upload |
 | open_browser       | True                                   | Controls open url in default browser after upload   |
 | copy_clipboard     | True                                   | Controls copy url to clipboard after upload         |
 | output_url         | True                                   | Controls print url to stdout after upload           |
+
+Please note that if `gyazo_server` is set to `True`, `upload_script` and `secret` are ignored.
 
 ### Server
 

@@ -14,6 +14,7 @@ import requests
 # Configuration
 config = ConfigParser()
 config.read_dict({'Myazo': {
+    'gyazo_server': False, # If True, upload_script and secret are ignored
     'upload_script': 'https://myazo.example.com/upload.php',
     'secret': 'hunter2',
     'clear_metadata': True,
@@ -66,15 +67,22 @@ if config.getboolean('clear_metadata'):
 
 img = open(tmp_file, 'rb')
 
-r = requests.post(
-    config.get('upload_script'),
-    data={'secret': config.get('secret')},
-    files={'screenshot': img}
-)
+if config.get('gyazo_server'):
+    # If an error occurred, it'll output an error image url
+    r = requests.post(
+        'https://upload.gyazo.com/upload.cgi',
+        files={'imagedata': img}
+    )
+else:
+    r = requests.post(
+        config.get('upload_script'),
+        data={'secret': config.get('secret')},
+        files={'screenshot': img}
+    )
 
-if r.status_code != 200:
-    print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
-    exit(-2)
+    if r.status_code != 200:
+        print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
+        exit(-2)
 
 url = r.text
 
