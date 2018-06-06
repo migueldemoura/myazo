@@ -63,6 +63,7 @@ If an external file is found, Myazo extends the default config with the provided
 | Key                | Default                                | Description                                         |
 |--------------------|----------------------------------------|-----------------------------------------------------|
 | gyazo_server       | False                                  | Controls whether to use Gyazo's servers             |
+| gyazo_direct_link  | True                                   | Controls whether to open Gyazo direct image url     |
 | upload_script      | 'https://myazo.example.com/upload.php' | Full path to the upload.php file                    |
 | secret             | 'hunter2'                              | Secret token                                        |
 | clear_metadata     | True                                   | Controls clearing screenshot metadata before upload |

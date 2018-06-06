@@ -1,5 +1,6 @@
 [Myazo]
 gyazo_server = False
+gyazo_direct_link = True
 upload_script = https://myazo.example.com/upload.php
 secret = hunter2
 clear_metadata = True

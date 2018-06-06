@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from configparser import ConfigParser
+from pathlib import Path
 from subprocess import run
 import os
 import platform
@@ -15,6 +16,7 @@ import requests
 config = ConfigParser()
 config.read_dict({'Myazo': {
     'gyazo_server': False, # If True, upload_script and secret are ignored
+    'gyazo_direct_link': True, # Ignored if gyazo_server is False
     'upload_script': 'https://myazo.example.com/upload.php',
     'secret': 'hunter2',
     'clear_metadata': True,
@@ -68,7 +70,6 @@ if config.getboolean('clear_metadata'):
 img = open(tmp_file, 'rb')
 
 if config.get('gyazo_server'):
-    # If an error occurred, it'll output an error image url
     r = requests.post(
         'https://upload.gyazo.com/upload.cgi',
         files={'imagedata': img}
@@ -84,7 +85,12 @@ if r.status_code != 200:
     print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
     exit(-2)
 
-url = r.text
+if config.get('gyazo_server') and config.get('gyazo_direct_link'):
+    # Convert the Gyazo link to a direct image
+    # https://gyazo.com/hash > https://i.gyazo.com/hash.extension
+    url = r.text.replace('//', '//i.') + Path(tmp_file).suffix
+else:
+    url = r.text
 
 if config.getboolean('open_browser'):
     webbrowser.open(url)
