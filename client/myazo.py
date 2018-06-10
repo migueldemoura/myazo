@@ -69,7 +69,7 @@ if config.getboolean('clear_metadata'):
 
 img = open(tmp_file, 'rb')
 
-if config.get('gyazo_server'):
+if config.getboolean('gyazo_server'):
     r = requests.post(
         'https://upload.gyazo.com/upload.cgi',
         files={'imagedata': img}
@@ -85,7 +85,7 @@ if r.status_code != 200:
     print('Error: Failed to upload screenshot. Server returned status code {}.'.format(r.status_code))
     exit(-2)
 
-if config.get('gyazo_server') and config.get('gyazo_direct_link'):
+if config.getboolean('gyazo_server') and config.getboolean('gyazo_direct_link'):
     # Convert the Gyazo link to a direct image
     # https://gyazo.com/hash > https://i.gyazo.com/hash.extension
     url = r.text.replace('//', '//i.') + Path(tmp_file).suffix
