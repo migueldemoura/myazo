@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  myazo:
+    container_name: myazo
+    restart: always
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - myazo-data:/app/public/data
+
+volumes:
+  myazo-data:
+    driver: local
+
