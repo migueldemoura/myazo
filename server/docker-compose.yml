@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   myazo:
     container_name: myazo
@@ -7,8 +8,9 @@ services:
     ports:
       - 80:80
     volumes:
-      - myazo-uploads:/app/public/uploads
+      - myazo-data:/app/public/data
 
 volumes:
-  myazo-uploads:
+  myazo-data:
     driver: local
+
