@@ -27,7 +27,10 @@ config.read_dict({'Myazo': {
 config.read(os.path.expanduser('~/.config/myazo/config.ini'))
 config = config['Myazo']
 
-tmp_file = '{}/{}.png'.format(tempfile.gettempdir(), next(tempfile._get_candidate_names()))
+tmp_file = os.path.join(
+    tempfile.gettempdir(),
+    '{}.png'.format(next(tempfile._get_candidate_names()))
+)
 
 backends = {
     'Linux': {
