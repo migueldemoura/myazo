@@ -22,7 +22,7 @@ The following OSes have off-the-shelf compatibility. You can add more back ends 
 
 ### Server
 
-* PHP >= 5.6 (check with `php -v` or `php -r "echo phpinfo();"`)
+* PHP >= 7.1 (check with `php -v` or `php -r 'echo phpinfo();'`)
 
 ## Installation
 
@@ -30,10 +30,8 @@ The following OSes have off-the-shelf compatibility. You can add more back ends 
 * Install client requirements:
 
 ```shell
-pip install -r client/src/requirements.txt
+pip3 install -r client/src/requirements.txt
 ```
-
-On some GNU/Linux distributions, `pip3` is used for python3. If that's the case, swap `pip` with `pip3` in the command above.
 
 * Choose or generate a secret key and fill in the variable `secret` at `client/src/myazo.py`;
 * Hash the secret key with bcrypt and fill in the variable `secretBcrypt` at `server/src/upload.php`;

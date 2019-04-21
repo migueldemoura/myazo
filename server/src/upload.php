@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 // Configuration
 $config = array_replace_recursive(
@@ -34,12 +34,7 @@ if (
 }
 
 // Generate screenshot path
-do {} while (
-    file_exists($filename = bin2hex(
-            function_exists('random_bytes') ? random_bytes(12) : openssl_random_pseudo_bytes(12)
-        ) . '.png'
-    )
-);
+do {} while (file_exists($filename = bin2hex(random_bytes(12)) . '.png'));
 
 // Create save directory and move screenshot to it
 if (
