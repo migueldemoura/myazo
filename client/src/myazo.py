@@ -14,8 +14,8 @@ import requests
 from PIL import Image
 
 # Configuration
-config = ConfigParser()
-config.read_dict(
+config_parser = ConfigParser()
+config_parser.read_dict(
     {
         "Myazo": {
             "gyazo_server": False,  # If True, upload_script and secret are ignored
@@ -29,8 +29,8 @@ config.read_dict(
         }
     }
 )
-config.read(os.path.expanduser("~/.config/myazo/config.ini"))
-config = config["Myazo"]
+config_parser.read(os.path.expanduser("~/.config/myazo/config.ini"))
+config = config_parser["Myazo"]
 
 tmp_file = os.path.join(
     tempfile.gettempdir(), "{}.png".format(next(tempfile._get_candidate_names()))
@@ -50,7 +50,7 @@ backends = {
 }
 
 for util, args in backends[platform.system()].items():
-    if shutil.which(util) != None and run([util] + args).returncode == 0:
+    if shutil.which(util) is not None and run([util] + args).returncode == 0:
         break
 
 # If the used util stored the screenshot in the clipboard, output it to the tmp file
@@ -61,9 +61,9 @@ if util == "snippingtool":
     if img is not None:
         img.save(tmp_file, optimize=True)
 
-if os.path.isfile(tmp_file) != True:
+if os.path.isfile(tmp_file) is not True:
     print("Error: Failed to take screenshot.")
-    exit(-1)
+    exit(1)
 
 if config.getboolean("clear_metadata"):
     img = Image.open(tmp_file)
@@ -88,7 +88,7 @@ if r.status_code != 200:
             r.status_code
         )
     )
-    exit(-2)
+    exit(2)
 
 if config.getboolean("gyazo_server") and config.getboolean("gyazo_direct_link"):
     # Convert the Gyazo link to a direct image

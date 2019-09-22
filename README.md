@@ -94,7 +94,8 @@ Please note that `maxScreenshotSize` may be capped externally by PHP and the web
 Make sure the file is executable by running `chmod +x /path/to/myazo.py`.
 
 `~/.local/share/applications/myazo.desktop`
-```
+
+``` ini
 [Desktop Entry]
 Name=Myazo
 Comment=Screenshot
