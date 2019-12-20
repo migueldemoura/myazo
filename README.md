@@ -30,7 +30,8 @@ The following OSes have off-the-shelf compatibility. You can add more back ends 
 * Install client requirements:
 
 ```shell
-pip3 install -r client/src/requirements.txt
+pip3 install poetry
+cd client/ && poetry install
 ```
 
 * Choose or generate a secret key and fill in the variable `secret` at `client/src/myazo.py`;
