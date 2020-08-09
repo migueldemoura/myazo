@@ -6,13 +6,13 @@ Myazo is a self-hosted [Gyazo] alternative. It allows you to take a screenshot o
 
 It is comprised by a cross-platform client in Python which defers the actual taking of screenshot to OS built-in tools (macOS and Windows) or common utilities (GNU/Linux distributions). The server script, designed with cheap shared hosting in mind, is written with the ubiquitous PHP. Both the client and server are single files. You may separate the settings from the code if you wish.
 
-It can also function as a mere Gyazo client, uploading directly to Gyazo's servers. In that case, you simply need the client and to set the configuration option `gyazo_server` to `True`. This mode won't send additional metadata like the Gyazo proprietary clients.
+It can also function as a mere Gyazo client, uploading directly to Gyazo's servers. In that case, you simply need the client and to set the configuration option `gyazo_server` to `True`. This mode won't send additional metadata like Gyazo's proprietary clients.
 
 ## Compatibility
 
 ### Client
 
-* Python >= 3.5 (check with `python --version`)
+* Python >= 3.6 (check with `python --version` or `python3 --version`)
 
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
@@ -30,9 +30,17 @@ The following OSes have off-the-shelf compatibility. You can add more back ends 
 * Install client requirements:
 
 ```shell
+pip3 install -r requirements.txt
+```
+
+Alternatively, you can use poetry:
+
+```shell
 pip3 install poetry
 cd client/ && poetry install
 ```
+
+You'll have to ensure that the python script is then ran with `poetry run`.
 
 * Choose or generate a secret key and fill in the variable `secret` at `client/src/myazo.py`;
 * Hash the secret key with bcrypt and fill in the variable `secretBcrypt` at `server/src/upload.php`;
@@ -96,7 +104,7 @@ Make sure the file is executable by running `chmod +x /path/to/myazo.py`.
 
 `~/.local/share/applications/myazo.desktop`
 
-``` ini
+```ini
 [Desktop Entry]
 Name=Myazo
 Comment=Screenshot
