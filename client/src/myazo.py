@@ -32,23 +32,25 @@ config_parser.read_dict(
 config_parser.read(os.path.expanduser("~/.config/myazo/config.ini"))
 config = config_parser["Myazo"]
 
-tmp_file = os.path.join(
-    tempfile.gettempdir(), "{}.png".format(next(tempfile._get_candidate_names()))
-)
+tmp_filename = tempfile.NamedTemporaryFile(suffix=".png").name
 
 backends = {
     "Linux": {
-        "gnome-screenshot": ["-a", "-f", tmp_file],
-        "mv": ["$(xfce4-screenshooter -r -o ls)", tmp_file],
+        "gnome-screenshot": ["-a", "-f", tmp_filename],
+        "mv": ["$(xfce4-screenshooter -r -o ls)", tmp_filename],
         # KDE Spectacle requires slight user interaction after selecting region
-        "spectacle": ["-b", "-n", "-r", "-o", tmp_file],
-        "scrot": ["-s", tmp_file],
-        "import": [tmp_file],  # ImageMagick
+        "spectacle": ["-b", "-n", "-r", "-o", tmp_filename],
+        "scrot": ["-s", tmp_filename],
+        # ImageMagick
+        "import": [tmp_filename],
     },
-    "Darwin": {"screencapture": ["-i", tmp_file]},  # macOS
-    "Windows": {"snippingtool": ["/clip"]},  # '/clip' requires at least Win10 1703
+    # macOS
+    "Darwin": {"screencapture": ["-i", tmp_filename]},
+    # '/clip' requires at least Win10 1703
+    "Windows": {"snippingtool": ["/clip"]},
 }
 
+util = None
 for util, args in backends[platform.system()].items():
     if shutil.which(util) is not None and run([util] + args).returncode == 0:
         break
@@ -59,20 +61,20 @@ if util == "snippingtool":
 
     img = ImageGrab.grabclipboard()
     if img is not None:
-        img.save(tmp_file, optimize=True)
+        img.save(tmp_filename, optimize=True)
 
-if os.path.isfile(tmp_file) is not True:
+if os.path.isfile(tmp_filename) is not True:
     print("Error: Failed to take screenshot.")
     exit(1)
 
 if config.getboolean("clear_metadata"):
-    img = Image.open(tmp_file)
+    img = Image.open(tmp_filename)
     new_img = Image.new(img.mode, img.size)
     new_img.putdata(list(img.getdata()))
-    new_img.save(tmp_file, optimize=True)
+    new_img.save(tmp_filename, optimize=True)
 
-img = open(tmp_file, "rb")
-
+# Upload image to server
+img = open(tmp_filename, "rb")
 if config.getboolean("gyazo_server"):
     r = requests.post("https://upload.gyazo.com/upload.cgi", files={"imagedata": img})
 else:
@@ -84,16 +86,15 @@ else:
 
 if r.status_code != 200:
     print(
-        "Error: Failed to upload screenshot. Server returned status code {}.".format(
-            r.status_code
-        )
+        "Error: Failed to upload screenshot. "
+        f"Server returned status code '{r.status_code}'."
     )
     exit(2)
 
 if config.getboolean("gyazo_server") and config.getboolean("gyazo_direct_link"):
     # Convert the Gyazo link to a direct image
     # https://gyazo.com/hash > https://i.gyazo.com/hash.extension
-    url = r.text.replace("//", "//i.") + Path(tmp_file).suffix
+    url = r.text.replace("//", "//i.") + Path(tmp_filename).suffix
 else:
     url = r.text
 
@@ -105,4 +106,4 @@ if config.getboolean("output_url"):
     print(url)
 
 img.close()
-os.remove(tmp_file)
+os.remove(tmp_filename)

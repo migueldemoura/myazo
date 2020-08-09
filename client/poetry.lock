@@ -70,8 +70,8 @@ secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [metadata]
-content-hash = "77b8361435b8eb0cb11876214be7b33d5900e9a39256b51a67d2edb9eff39dbc"
-python-versions = "^3.5"
+content-hash = "f47eec0faba8d137db1ff7a402c61470f873b1cb8f46b672b1102d491f41a6be"
+python-versions = "^3.6"
 
 [metadata.files]
 certifi = [

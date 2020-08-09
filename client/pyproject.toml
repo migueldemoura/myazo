@@ -6,7 +6,7 @@ authors = ["Miguel de Moura"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 requests = "^2.24.0"
 pyperclip = "^1.8.0"
 pillow = "^7.2.0"
