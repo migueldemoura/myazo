@@ -118,7 +118,7 @@ StartupNotify=false
 
 * Windows
 
-Rename `myazo.py` to `myazo.pyw` and create a new shortcut pointing to `C:\path\to\myazo.pyw`. Optionally, you can change the icon to a more fitting and better looking one (`shell32.dll`'s scissors one is decent). You can then pin the shortcut to the taskbar or start menu.
+Rename `myazo.py` to `myazo.pyw` and create a new shortcut with target `pythonw.exe C:\path\to\myazo.pyw`. Optionally, you can change the icon to a more fitting and better looking one (`shell32.dll`'s scissors one is decent). You can then pin the shortcut to the taskbar or start menu.
 
 ## License
 
