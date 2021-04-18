@@ -8,7 +8,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - myazo-data:/app/public/data
+      - myazo-data:/app/data
 
 volumes:
   myazo-data:
