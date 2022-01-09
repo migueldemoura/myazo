@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "myazo"
-version = "0.8.2"
+version = "0.8.3"
 description = "Self-hosted, cross-platform Gyazo alternative"
 authors = ["Miguel de Moura"]
 license = "MIT"
