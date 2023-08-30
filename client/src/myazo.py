@@ -76,12 +76,15 @@ if config.getboolean("clear_metadata"):
 # Upload image to server
 img = open(tmp_filename, "rb")
 if config.getboolean("gyazo_server"):
-    r = requests.post("https://upload.gyazo.com/upload.cgi", files={"imagedata": img})
+    r = requests.post(
+        "https://upload.gyazo.com/upload.cgi", files={"imagedata": img}, timeout=15
+    )
 else:
     r = requests.post(
         config.get("upload_script"),
         data={"secret": config.get("secret")},
         files={"screenshot": img},
+        timeout=15,
     )
 
 if r.status_code != 200:
