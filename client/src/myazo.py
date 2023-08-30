@@ -52,7 +52,10 @@ backends = {
 
 util = None
 for util, args in backends[platform.system()].items():
-    if shutil.which(util) is not None and run([util] + args).returncode == 0:
+    if (
+        shutil.which(util) is not None
+        and run([util] + args, check=False).returncode == 0
+    ):
         break
 
 # If the used util stored the screenshot in the clipboard, output it to the tmp file
