@@ -12,7 +12,7 @@ It can also function as a mere Gyazo client, uploading directly to Gyazo's serve
 
 ### Client
 
-* Python >= 3.7 (check with `python --version` or `python3 --version`)
+* Python >= 3.8 (check with `python --version` or `python3 --version`)
 
 The following OSes have off-the-shelf compatibility. You can add more back ends for missing systems or configurations.
 
