@@ -28,7 +28,7 @@ if (
     $screenshot['error'] !== UPLOAD_ERR_OK ||
     // Verify size and mime type
     $screenshot['size'] > $config['maxScreenshotSize'] ||
-    !in_array( $mimetype, $config['screenshotMimeTypes']
+    !in_array( $mimetype, $config['screenshotMimeTypes'], true)
 ) {
     http_response_code(422);
     exit();
