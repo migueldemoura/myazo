@@ -5,7 +5,7 @@ $config = array_replace_recursive(
     [
         'secretBcrypt' => '',
         'saveDirName' => '/data/',
-        'maxScreenshotSize' => 128 * 1048576,
+        'maxScreenshotSize' => 2 * 1048576,
         'screenshotMimeTypes' => [ 'image/png', 'image/jpeg' ]
     ],
     file_exists('./config.php') ? include_once('./config.php') : []
