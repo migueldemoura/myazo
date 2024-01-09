@@ -4,5 +4,5 @@ return [
     'secretBcrypt' => '',
     'saveDirName' => '/data/',
     'maxScreenshotSize' => 2 * 1048576,
-    'screenshotMimeType' => 'image/png'
+    'screenshotMimeTypes' => [ 'image/png', 'image/jpeg' ]
 ];
