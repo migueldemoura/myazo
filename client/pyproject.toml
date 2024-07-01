@@ -9,7 +9,7 @@ license = "MIT"
 python = "^3.8"
 requests = "^2.32.2"
 pyperclip = "^1.8.2"
-pillow = "^10.3.0"
+pillow = "^10.4.0"
 
 [tool.poetry.dev-dependencies]
 
