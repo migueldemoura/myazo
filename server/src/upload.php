@@ -6,7 +6,7 @@ $config = array_replace_recursive(
         'secretBcrypt' => '',
         'saveDirName' => '/data/',
         'maxScreenshotSize' => 2 * 1048576,
-        'screenshotMimeType' => 'image/png'
+        'screenshotMimeTypes' => [ 'image/png', 'image/jpeg' ]
     ],
     file_exists('./config.php') ? include_once('./config.php') : []
 );
@@ -20,6 +20,7 @@ if (!password_verify($_POST['secret'], $config['secretBcrypt'])) {
     exit();
 }
 
+$mimetype = isset($screenshot['tmp_name']) ? mime_content_type($screenshot['tmp_name']) : "error";
 if (
     // Make sure it is a successful single file upload
     !isset($screenshot['error']) ||
@@ -27,14 +28,14 @@ if (
     $screenshot['error'] !== UPLOAD_ERR_OK ||
     // Verify size and mime type
     $screenshot['size'] > $config['maxScreenshotSize'] ||
-    mime_content_type($screenshot['tmp_name']) !== $config['screenshotMimeType']
+    !in_array( $mimetype, $config['screenshotMimeTypes'], true)
 ) {
     http_response_code(422);
     exit();
 }
 
 // Generate screenshot path
-do {} while (file_exists($filename = bin2hex(random_bytes(12)) . '.png'));
+do {} while (file_exists($filename = bin2hex(random_bytes(12)) . '.' . ($mimetype == "image/png" ? "png" : "jpg" )));
 
 // Create save directory and move screenshot to it
 if (
