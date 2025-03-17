@@ -5,4 +5,4 @@ description = "Self-hosted, cross-platform Gyazo alternative"
 authors = [{ name = "Miguel de Moura" }]
 license = "MIT"
 requires-python = ">=3.9"
-dependencies = ["pillow>=10.4.0", "pyperclip>=1.9.0", "requests>=2.32.3"]
+dependencies = ["pillow>=11.1.0", "pyperclip>=1.9.0", "requests>=2.32.3"]
